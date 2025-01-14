@@ -8,9 +8,11 @@ import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.security.authentication.JmixUserDetails;
-import org.springframework.security.core.GrantedAuthority;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.security.core.GrantedAuthority;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
@@ -23,7 +25,7 @@ import java.util.UUID;
 public class User implements JmixUserDetails, HasTimeZone {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "ID", nullable = false)
     @JmixGeneratedValue
     private UUID id;
 
@@ -31,9 +33,11 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Column(name = "VERSION", nullable = false)
     private Integer version;
 
+    @NotNull
     @Column(name = "USERNAME", nullable = false)
-    protected String login;
+    protected String username;
 
+    @NotNull(message = "{msg://com.company.parsing_wpd.entity/User.password.validation.NotNull}")
     @Secret
     @SystemLevel
     @Column(name = "PASSWORD")
@@ -45,6 +49,7 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Column(name = "LAST_NAME")
     protected String lastName;
 
+    @NotNull(message = "{msg://com.company.parsing_wpd.entity/User.email.validation.NotNull}")
     @Email
     @Column(name = "EMAIL")
     protected String email;
@@ -57,6 +62,10 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     @Transient
     protected Collection<? extends GrantedAuthority> authorities;
+
+    public String getUsername() {
+        return username;
+    }
 
     public UUID getId() {
         return id;
@@ -77,14 +86,11 @@ public class User implements JmixUserDetails, HasTimeZone {
     public String getPassword() {
         return password;
     }
+    
 
-    @Override
-    public String getUsername() {
-        return login;
-    }
 
-    public void setLogin(final String login) {
-        this.login = login;
+    public void setUsername(final String username) {
+        this.username = username;
     }
 
     public Boolean getActive() {
@@ -154,10 +160,10 @@ public class User implements JmixUserDetails, HasTimeZone {
     }
 
     @InstanceName
-    @DependsOnProperties({"firstName", "lastName", "login"})
+    @DependsOnProperties({"firstName", "lastName", "username"})
     public String getDisplayName() {
         return String.format("%s %s [%s]", (firstName != null ? firstName : ""),
-                (lastName != null ? lastName : ""), login).trim();
+                (lastName != null ? lastName : ""), username).trim();
     }
 
     @Override

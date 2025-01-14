@@ -33,9 +33,9 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Column(name = "VERSION", nullable = false)
     private Integer version;
 
-    @NotNull(message = "{msg://com.company.parsing_wpd.entity/User.login.validation.NotNull}")
+    @NotNull
     @Column(name = "USERNAME", nullable = false)
-    protected String login;
+    protected String username;
 
     @NotNull(message = "{msg://com.company.parsing_wpd.entity/User.password.validation.NotNull}")
     @Secret
@@ -63,8 +63,8 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Transient
     protected Collection<? extends GrantedAuthority> authorities;
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
     public UUID getId() {
@@ -87,13 +87,10 @@ public class User implements JmixUserDetails, HasTimeZone {
         return password;
     }
 
-    @Override
-    public String getUsername() {
-        return login;
-    }
 
-    public void setLogin(final String login) {
-        this.login = login;
+
+    public void setUsername(final String username) {
+        this.username = username;
     }
 
     public Boolean getActive() {
@@ -163,10 +160,10 @@ public class User implements JmixUserDetails, HasTimeZone {
     }
 
     @InstanceName
-    @DependsOnProperties({"firstName", "lastName", "login"})
+    @DependsOnProperties({"firstName", "lastName", "username"})
     public String getDisplayName() {
         return String.format("%s %s [%s]", (firstName != null ? firstName : ""),
-                (lastName != null ? lastName : ""), login).trim();
+                (lastName != null ? lastName : ""), username).trim();
     }
 
     @Override

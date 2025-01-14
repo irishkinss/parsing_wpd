@@ -36,7 +36,7 @@ public class UserTest {
     void test_saveAndLoad() {
         // Create and save a new User
         User user = dataManager.create(User.class);
-        user.setLogin("test-user-" + System.currentTimeMillis());
+        user.setUsername("test-user-" + System.currentTimeMillis());
         user.setPassword(passwordEncoder.encode("test-passwd"));
         savedUser = dataManager.save(user);
 

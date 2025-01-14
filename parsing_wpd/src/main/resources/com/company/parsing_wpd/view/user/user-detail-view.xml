@@ -18,7 +18,7 @@
     </facets>
     <layout>
         <formLayout id="form" dataContainer="userDc">
-            <textField id="usernameField" property="login" readOnly="true"/>
+            <textField id="usernameField" property="username" readOnly="true"/>
             <passwordField id="passwordField"
                            label="msg://com.company.parsing_wpd.entity/User.password"
                            required="true"

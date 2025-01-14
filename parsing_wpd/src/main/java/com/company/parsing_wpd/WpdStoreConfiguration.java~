@@ -18,49 +18,48 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import jakarta.persistence.EntityManagerFactory;
-
 import javax.sql.DataSource;
 
 @Configuration
-public class WpdstoreStoreConfiguration {
+public class WpdStoreConfiguration {
 
     @Bean
-    @ConfigurationProperties("wpdstore.datasource")
-    DataSourceProperties wpdstoreDataSourceProperties() {
+    @ConfigurationProperties("wpd.datasource")
+    DataSourceProperties wpdDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "wpdstore.datasource.hikari")
-    DataSource wpdstoreDataSource(@Qualifier("wpdstoreDataSourceProperties") DataSourceProperties properties) {
+    @ConfigurationProperties(prefix="wpd.datasource.hikari")
+    DataSource wpdDataSource(@Qualifier("wpdDataSourceProperties") DataSourceProperties properties) {
         return properties.initializeDataSourceBuilder().build();
     }
 
     @Bean
-    LocalContainerEntityManagerFactoryBean wpdstoreEntityManagerFactory(
-            @Qualifier("wpdstoreDataSource") DataSource dataSource,
+    LocalContainerEntityManagerFactoryBean wpdEntityManagerFactory(
+            @Qualifier("wpdDataSource") DataSource dataSource,
             JpaVendorAdapter jpaVendorAdapter,
             DbmsSpecifics dbmsSpecifics,
             JmixModules jmixModules,
             Resources resources
     ) {
-        return new JmixEntityManagerFactoryBean("wpdstore", dataSource, jpaVendorAdapter, dbmsSpecifics, jmixModules, resources);
+        return new JmixEntityManagerFactoryBean("wpd", dataSource, jpaVendorAdapter, dbmsSpecifics, jmixModules, resources);
     }
 
     @Bean
-    JpaTransactionManager wpdstoreTransactionManager(@Qualifier("wpdstoreEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return new JmixTransactionManager("wpdstore", entityManagerFactory);
+    JpaTransactionManager wpdTransactionManager(@Qualifier("wpdEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+        return new JmixTransactionManager("wpd", entityManagerFactory);
     }
 
-    @Bean("wpdstoreLiquibaseProperties")
-    @ConfigurationProperties(prefix = "wpdstore.liquibase")
-    public LiquibaseProperties wpdstoreLiquibaseProperties() {
-        return new LiquibaseProperties();
+    @Bean("wpdLiquibaseProperties")
+    @ConfigurationProperties(prefix = "wpd.liquibase")
+    public LiquibaseProperties wpdLiquibaseProperties() {
+       return new LiquibaseProperties();
     }
 
-    @Bean("wpdstoreLiquibase")
-    public SpringLiquibase wpdstoreLiquibase(@Qualifier("wpdstoreDataSource") DataSource dataSource,
-                                             @Qualifier("wpdstoreLiquibaseProperties") LiquibaseProperties liquibaseProperties) {
+    @Bean("wpdLiquibase")
+    public SpringLiquibase wpdLiquibase(@Qualifier("wpdDataSource") DataSource dataSource,
+                                               @Qualifier("wpdLiquibaseProperties") LiquibaseProperties liquibaseProperties) {
         return JmixLiquibaseCreator.create(dataSource, liquibaseProperties);
     }
 }

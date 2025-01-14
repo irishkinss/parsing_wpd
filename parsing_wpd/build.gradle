@@ -45,6 +45,7 @@ dependencies {
     testImplementation 'io.jmix.flowui:jmix-flowui-test-assist'
     implementation 'io.jmix.translations:jmix-translations-ru'
     implementation 'org.postgresql:postgresql'
+    implementation 'org.liquibase:liquibase-core' // Для Liquibase
 }
 
 test {
