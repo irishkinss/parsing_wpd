@@ -21,7 +21,6 @@
     <actions>
         <action id="saveAction" type="detail_saveClose"/>
         <action id="closeAction" type="detail_close"/>
-        <action id="parseStudyPlane" type="custom"/>
     </actions>
     <layout>
         <formLayout id="form" dataContainer="studyPlaneDc">
@@ -30,7 +29,7 @@
             <textField id="levelEducationField" property="levelEducation"/>
             <textField id="codeField" property="code"/>
             <textField id="profileField" property="profile"/>
-            <button id="uploadFileBtn" action="parseStudyPlane" text="парсинг"/>
+            <button id="uploadFileBtn"  text="парсинг"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>

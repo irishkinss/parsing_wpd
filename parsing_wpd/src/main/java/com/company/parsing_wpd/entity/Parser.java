@@ -23,7 +23,7 @@ public class Parser {
     @JmixId
     private UUID id;
 
-    private Document doc;
+//    private PDDocument doc;
 
     // Константные списки для форм обучения, квалификаций и исключений
     private static final List<String> STUDY_FORMS = Arrays.asList("очная", "очно-заочная", "заочная");
@@ -43,9 +43,7 @@ public class Parser {
             "(индекс"
     );
 
-    public Parser(Document doc) {
-        this.doc = doc;
-    }
+
 
     public UUID getId() {
         return id;
@@ -55,13 +53,7 @@ public class Parser {
         this.id = id;
     }
 
-    public Document getDoc() {
-        return doc;
-    }
 
-    public void setDoc(Document doc) {
-        this.doc = doc;
-    }
 
     // парсинг первой страницы для поиска наименования направления, кода и тп
     public static void parsingTitlePage(PDDocument document) {
@@ -155,6 +147,10 @@ public class Parser {
                 }
             }
 
+            // Выводим полученные данные
+            System.out.println(directionCode + " " + directionName + " " + directionProfile + " " + studyForm + " " + levelEducation);
+
+            document.close();
             // Место для сохранения в БД
             // Здесь можно отправить данные (directionCode, directionName, directionProfile, studyForm, levelEducation) в базу данных
 
