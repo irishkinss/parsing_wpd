@@ -10,6 +10,12 @@ jmix.ui.main-view-id = MainView
 jmix.ui.menu-config = com/company/parsing_wpd/menu.xml
 jmix.ui.composite-menu = true
 
+# File Storage
+#jmix.awsfs.access-key=YOUR_ACCESS_KEY
+#jmix.awsfs.secret-key=YOUR_SECRET_KEY
+#jmix.awsfs.bucket=YOUR_BUCKET_NAME
+#jmix.awsfs.region=YOUR_REGION
+
 ui.login.defaultUsername = admin
 ui.login.defaultPassword = admin
 
@@ -34,11 +40,7 @@ logging.level.io.jmix.core.AccessLogger = debug
 
 # 'debug' level logs all Jmix debug output
 logging.level.io.jmix = info
-wpd.datasource.url=jdbc:postgresql://localhost/wpd
-wpd.datasource.username=postgres
-wpd.datasource.password=12345
-wpd.liquibase.change-log=com/company/parsing_wpd/liquibase/wpd-changelog.xml
-jmix.core.additional-stores=wpd
+
 
 
 

@@ -18,10 +18,22 @@ public class Discipline {
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @Column(name = "CODE")
+    private String code;
+
     @OnDeleteInverse(DeletePolicy.CASCADE)
     @JoinColumn(name = "STUDY_PLANE_ID", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private StudyPlane studyPlane;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public StudyPlane getStudyPlane() {
         return studyPlane;
