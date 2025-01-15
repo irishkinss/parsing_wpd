@@ -36,7 +36,7 @@
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="addBtn" action="studyPlanesDataGrid.add"/>
+
             <button id="createBtn" action="studyPlanesDataGrid.create"/>
             <button id="editBtn" action="studyPlanesDataGrid.edit"/>
             <button id="readBtn" action="studyPlanesDataGrid.read"/>
@@ -49,7 +49,6 @@
                   dataContainer="studyPlanesDc"
                   columnReorderingAllowed="true">
             <actions>
-                <action id="add" type="list_add"/>
                 <action id="create" type="list_create"/>
                 <action id="edit" type="list_edit"/>
                 <action id="read" type="list_read"/>

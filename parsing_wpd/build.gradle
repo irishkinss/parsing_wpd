@@ -26,8 +26,9 @@ dependencies {
     implementation 'io.jmix.security:jmix-security-starter'
     implementation 'io.jmix.security:jmix-security-flowui-starter'
     implementation 'io.jmix.security:jmix-security-data-starter'
-//    implementation 'io.jmix.localfs:jmix-localfs-starter'
+    implementation 'io.jmix.localfs:jmix-localfs-starter'
     implementation 'io.jmix.flowui:jmix-flowui-starter'
+
     implementation 'io.jmix.flowui:jmix-flowui-data-starter'
     implementation 'io.jmix.flowui:jmix-flowui-themes'
     implementation 'io.jmix.datatools:jmix-datatools-starter'
@@ -46,7 +47,7 @@ dependencies {
     implementation 'io.jmix.translations:jmix-translations-ru'
     implementation 'org.postgresql:postgresql'
     implementation 'org.liquibase:liquibase-core' // Для Liquibase
-    implementation 'io.jmix.awsfs:jmix-awsfs-starter'
+//    implementation 'io.jmix.awsfs:jmix-awsfs-starter'
 }
 
 test {

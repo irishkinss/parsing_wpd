@@ -11,6 +11,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import com.company.parsing_wpd.entity.Parser;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @Table(name = "DOCUMENT")
 @Entity
 public class Document {
+
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
@@ -89,5 +91,11 @@ public class Document {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+
+
+    public boolean typeDocument(Document document){
+        return true;
     }
 }
