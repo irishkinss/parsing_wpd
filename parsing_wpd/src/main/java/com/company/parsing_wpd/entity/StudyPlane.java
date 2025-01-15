@@ -1,5 +1,6 @@
 package com.company.parsing_wpd.entity;
 
+import io.jmix.core.FileRef;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.InstanceName;
@@ -18,6 +19,9 @@ public class StudyPlane {
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @Column(name = "FILE_", length = 1024)
+    private FileRef file;
 
     @InstanceName
     @Column(name = "NAME", nullable = false)
@@ -40,6 +44,14 @@ public class StudyPlane {
     @OrderBy("code")
     @OneToMany(mappedBy = "studyPlane")
     private List<Discipline> disciplines;
+
+    public FileRef getFile() {
+        return file;
+    }
+
+    public void setFile(FileRef file) {
+        this.file = file;
+    }
 
     public List<Discipline> getDisciplines() {
         return disciplines;

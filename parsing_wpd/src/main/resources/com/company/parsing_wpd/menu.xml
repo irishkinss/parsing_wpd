@@ -3,6 +3,7 @@
 
     <menu id="application" title="msg://com.company.parsing_wpd/menu.application.title" opened="true">
         <item view="User.list" title="msg://com.company.parsing_wpd.view.user/UserListView.title"/>
+        <item view="StudyPlane.list" title="msg://com.company.parsing_wpd.view.studyplane/studyPlaneListView.title"/>
     </menu>
 
 </menu-config>

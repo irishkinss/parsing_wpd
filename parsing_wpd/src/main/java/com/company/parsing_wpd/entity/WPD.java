@@ -13,7 +13,8 @@ import java.util.UUID;
 
 @JmixEntity
 @Table(name = "WPD", indexes = {
-        @Index(name = "IDX_WPD_DISCIPLINE", columnList = "DISCIPLINE_ID")
+        @Index(name = "IDX_WPD_DISCIPLINE", columnList = "DISCIPLINE_ID"),
+        @Index(name = "IDX_WPD_FILE", columnList = "FILE_ID")
 })
 @Entity
 public class WPD {
@@ -21,6 +22,10 @@ public class WPD {
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @JoinColumn(name = "FILE_ID")
+    @OneToOne(fetch = FetchType.LAZY)
+    private Document file;
 
     @InstanceName
     @Column(name = "NAME", nullable = false)
@@ -44,6 +49,14 @@ public class WPD {
     @Column(name = "PROFILE", nullable = false)
     @NotNull
     private String profile;
+
+    public Document getFile() {
+        return file;
+    }
+
+    public void setFile(Document file) {
+        this.file = file;
+    }
 
     public String getProfile() {
         return profile;

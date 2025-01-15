@@ -3,6 +3,7 @@ package com.company.parsing_wpd.entity;
 import io.jmix.core.DeletePolicy;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.OnDeleteInverse;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
 
@@ -19,6 +20,13 @@ public class Discipline {
     @Id
     private UUID id;
 
+    @InstanceName
+    @Column(name = "NAME")
+    private String name;
+
+    @Column(name = "IS_ROOT")
+    private Boolean isRoot;
+
     @Column(name = "CODE")
     private String code;
 
@@ -26,6 +34,22 @@ public class Discipline {
     @JoinColumn(name = "STUDY_PLANE_ID", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private StudyPlane studyPlane;
+
+    public Boolean getIsRoot() {
+        return isRoot;
+    }
+
+    public void setIsRoot(Boolean isRoot) {
+        this.isRoot = isRoot;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getCode() {
         return code;
