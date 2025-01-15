@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="parsing_wpd">
+        <createTable tableName="DOCUMENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DOCUMENT"/>
+            </column>
+            <column name="FILE_" type="VARCHAR(1024)"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="${offsetDateTime.type}"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="${offsetDateTime.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="parsing_wpd">
+        <addColumn tableName="STUDY_PLANE">
+            <column name="FILE_" type="VARCHAR(1024)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="3" author="parsing_wpd">
+        <addColumn tableName="WPD">
+            <column name="FILE_ID" type="UUID"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="4" author="parsing_wpd">
+        <addColumn tableName="DISCIPLINE">
+            <column name="IS_ROOT" type="BOOLEAN"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="5" author="parsing_wpd">
+        <createIndex indexName="IDX_WPD_FILE" tableName="WPD">
+            <column name="FILE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FILE_ID" baseTableName="WPD" constraintName="FK_WPD_ON_FILE"
+                                 referencedColumnNames="ID" referencedTableName="DOCUMENT"/>
+    </changeSet>
+</databaseChangeLog>
