@@ -1,7 +1,0 @@
-package com.company.parsing_wpd.entity;
-
-import jakarta.persistence.Entity;
-
-@Entity
-public class DisciplineRelation {
-}
