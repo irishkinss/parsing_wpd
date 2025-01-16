@@ -18,6 +18,7 @@ public class Discipline {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @InstanceName

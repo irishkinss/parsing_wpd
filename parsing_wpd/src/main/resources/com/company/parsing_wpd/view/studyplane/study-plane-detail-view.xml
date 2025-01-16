@@ -25,11 +25,11 @@
     <layout>
         <formLayout id="form" dataContainer="studyPlaneDc">
             <fileStorageUploadField id="fileField" clearButtonVisible="true" fileNameVisible="true" property="file"/>
+            <button id="uploadFileBtn"  text="парсинг"/>
             <textField id="nameField" property="name"/>
             <textField id="levelEducationField" property="levelEducation"/>
             <textField id="codeField" property="code"/>
             <textField id="profileField" property="profile"/>
-            <button id="uploadFileBtn"  text="парсинг"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>
