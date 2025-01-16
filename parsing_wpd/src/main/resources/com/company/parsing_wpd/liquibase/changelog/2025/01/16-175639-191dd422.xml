@@ -6,6 +6,6 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
     <changeSet id="1" author="parsing_wpd">
-        <dropColumn columnName="login" tableName="user_"/>
-</changeSet>
+        <dropTable cascadeConstraints="true" tableName="example_table"/>
+    </changeSet>
 </databaseChangeLog>

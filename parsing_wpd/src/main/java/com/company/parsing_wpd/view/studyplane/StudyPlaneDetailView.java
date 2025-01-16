@@ -2,11 +2,16 @@ package com.company.parsing_wpd.view.studyplane;
 
 import com.company.parsing_wpd.entity.Discipline;
 import com.company.parsing_wpd.entity.StudyPlane;
+import com.company.parsing_wpd.view.discipline.DisciplineListView;
 import com.company.parsing_wpd.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
 import io.jmix.core.DataManager;
 import io.jmix.core.FileRef;
 import io.jmix.core.FileStorage;
@@ -21,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.company.parsing_wpd.entity.Parser;

@@ -25,4 +25,5 @@ public interface UiMinimalRole {
     @EntityPolicy(entityClass = KeyValueEntity.class, actions = EntityPolicyAction.READ)
     @EntityAttributePolicy(entityClass = KeyValueEntity.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
     void keyValueEntity();
+
 }

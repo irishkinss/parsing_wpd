@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://studyPlaneListView.title"
-      focusComponent="studyPlanesDataGrid">
+      title="msg://disciplineListView.title"
+      focusComponent="disciplinesDataGrid">
     <data>
-        <collection id="studyPlanesDc"
-                    class="com.company.parsing_wpd.entity.StudyPlane">
+        <collection id="disciplinesDc"
+                    class="com.company.parsing_wpd.entity.Discipline">
             <fetchPlan extends="_instance_name">
-                <property name="levelEducation"/>
+                <property name="wpd" fetchPlan="_instance_name">
+                    <property name="file" fetchPlan="_instance_name">
+                        <property name="file"/>
+                    </property>
+                </property>
                 <property name="code"/>
-                <property name="profile"/>
-                <property name="file"/>
             </fetchPlan>
-            <loader id="studyPlanesDl" readOnly="true">
+            <loader id="disciplinesDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from StudyPlane e]]>
+                    <![CDATA[select e from Discipline e]]>
                 </query>
             </loader>
         </collection>
@@ -32,37 +34,31 @@
     </actions>
     <layout>
         <genericFilter id="genericFilter"
-                       dataLoader="studyPlanesDl">
+                       dataLoader="disciplinesDl">
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createBtn" action="studyPlanesDataGrid.create"/>
-            <button id="editBtn" action="studyPlanesDataGrid.edit"/>
-            <button id="readBtn" action="studyPlanesDataGrid.read"/>
-            <button id="removeBtn" action="studyPlanesDataGrid.remove"/>
-            <simplePagination id="pagination" dataLoader="studyPlanesDl"/>
+            <button id="createBtn" action="disciplinesDataGrid.create"/>
+            <button id="editBtn" action="disciplinesDataGrid.edit"/>
+            <button id="removeBtn" action="disciplinesDataGrid.remove"/>
+            <button id="parserDiscBtn" text="parse from UPlan"/>
+            <simplePagination id="pagination" dataLoader="disciplinesDl"/>
         </hbox>
-        <dataGrid id="studyPlanesDataGrid"
+        <dataGrid id="disciplinesDataGrid"
                   width="100%"
                   minHeight="20em"
-                  dataContainer="studyPlanesDc"
-                  columnReorderingAllowed="true">
+                  dataContainer="disciplinesDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
             <actions>
-
                 <action id="create" type="list_create"/>
                 <action id="edit" type="list_edit"/>
-                <action id="read" type="list_read"/>
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
+                <column property="wpd"/>
                 <column property="name"/>
-                <column property="levelEducation"/>
                 <column property="code"/>
-                <column property="profile"/>
-                <column property="file"/>
-                <editorActionsColumn>
-                    <editButton icon="vaadin:file-add"/>
-                </editorActionsColumn>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

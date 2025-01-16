@@ -1,9 +1,6 @@
 package com.company.parsing_wpd.entity;
 
-import io.jmix.core.DeletePolicy;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
-import io.jmix.core.entity.annotation.OnDeleteInverse;
-import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
@@ -13,7 +10,6 @@ import java.util.UUID;
 
 @JmixEntity
 @Table(name = "WPD", indexes = {
-        @Index(name = "IDX_WPD_DISCIPLINE", columnList = "DISCIPLINE_ID"),
         @Index(name = "IDX_WPD_FILE", columnList = "FILE_ID")
 })
 @Entity
@@ -32,12 +28,6 @@ public class WPD {
     @NotNull
     private String name;
 
-    @OnDeleteInverse(DeletePolicy.CASCADE)
-    @JoinColumn(name = "DISCIPLINE_ID")
-    @Composition
-    @OneToOne(fetch = FetchType.LAZY)
-    private Discipline discipline;
-
     @Column(name = "LEVEL_EDUCATION", nullable = false)
     @NotNull
     private String levelEducation;
@@ -49,6 +39,16 @@ public class WPD {
     @Column(name = "PROFILE", nullable = false)
     @NotNull
     private String profile;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "wpd")
+    private Discipline discipline;
+
+    public Discipline getDiscipline() {
+        return discipline;
+    }
+
+    public void setDiscipline(Discipline discipline) {
+        this.discipline = discipline;
+    }
 
     public Document getFile() {
         return file;
@@ -80,14 +80,6 @@ public class WPD {
 
     public void setLevelEducation(String levelEducation) {
         this.levelEducation = levelEducation;
-    }
-
-    public Discipline getDiscipline() {
-        return discipline;
-    }
-
-    public void setDiscipline(Discipline discipline) {
-        this.discipline = discipline;
     }
 
     public String getName() {

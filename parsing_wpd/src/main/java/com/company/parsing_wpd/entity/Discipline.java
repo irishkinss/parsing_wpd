@@ -11,7 +11,8 @@ import java.util.UUID;
 
 @JmixEntity
 @Table(name = "DISCIPLINE", indexes = {
-        @Index(name = "IDX_DISCIPLINE_STUDY_PLANE", columnList = "STUDY_PLANE_ID")
+        @Index(name = "IDX_DISCIPLINE_STUDY_PLANE", columnList = "STUDY_PLANE_ID"),
+        @Index(name = "IDX_DISCIPLINE_WPD", columnList = "WPD_ID")
 })
 @Entity
 public class Discipline {
@@ -21,6 +22,9 @@ public class Discipline {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @JoinColumn(name = "WPD_ID")
+    @OneToOne(fetch = FetchType.LAZY)
+    private WPD wpd;
     @InstanceName
     @Column(name = "NAME")
     private String name;
@@ -35,6 +39,14 @@ public class Discipline {
     @JoinColumn(name = "STUDY_PLANE_ID", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private StudyPlane studyPlane;
+
+    public WPD getWpd() {
+        return wpd;
+    }
+
+    public void setWpd(WPD wpd) {
+        this.wpd = wpd;
+    }
 
     public Boolean getIsRoot() {
         return isRoot;

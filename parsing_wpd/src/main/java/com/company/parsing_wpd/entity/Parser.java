@@ -177,6 +177,7 @@ public class Parser {
         return new String[]{directionCode, directionName, directionProfile, studyForm, levelEducation};
     }
 
+
     // Метод для парсинга списка дисциплин и их кодов из документа PDF
     public static Map<String, String> parsingDisciplines(PDDocument document) {
         Map<String, String> disciplinesMap = new HashMap<>();
