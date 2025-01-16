@@ -41,11 +41,11 @@ com.company.parsing_wpd.entity/User.id=ID
 login=Username
 com.company.parsing_wpd.entity/User.firstName=First name
 com.company.parsing_wpd.entity/User.lastName=Last name
-com.company.parsing_wpd.entity/User.login.validation.NotNull=Login cannot be empty!
+com.company.parsing_wpd.entity/User.login.validation.NotNull=Логин не может быть пустым!
 com.company.parsing_wpd.entity/User.password=Password
-com.company.parsing_wpd.entity/User.password.validation.NotNull=Password cannot be empty!
+com.company.parsing_wpd.entity/User.password.validation.NotNull=Пароль не может быть пустым!
 com.company.parsing_wpd.entity/User.email=Email
-com.company.parsing_wpd.entity/User.email.validation.NotNull=Email cannot be empty!
+com.company.parsing_wpd.entity/User.email.validation.NotNull=Email не может быть пустым!
 com.company.parsing_wpd.entity/User.timeZoneId=Time zone
 com.company.parsing_wpd.entity/User.active=Active
 com.company.parsing_wpd.entity/User.version=Version
@@ -63,10 +63,10 @@ com.company.parsing_wpd.view.main/applicationTitle.text=Parsing_wpd
 com.company.parsing_wpd.view.main/navigation.ariaLabel=Views
 com.company.parsing_wpd.view.main/drawerToggle.ariaLabel=Menu toggle
 
-com.company.parsing_wpd.view.discipline/disciplineDetailView.title=Discipline
-com.company.parsing_wpd.view.discipline/disciplineListView.title=Disciplines
+com.company.parsing_wpd.view.discipline/disciplineDetailView.title=Дисциплины
+com.company.parsing_wpd.view.discipline/disciplineListView.title=Дисциплины
 
-com.company.parsing_wpd.view.disciplinelistofstudyplane/DisciplineListOfStudyPlane=Discipline
+com.company.parsing_wpd.view.disciplinelistofstudyplane/DisciplineListOfStudyPlane=Дисциплины
 
 com.company.parsing_wpd.view.login/LoginView.title=Login - Parsing_wpd
 com.company.parsing_wpd.view.login/loginForm.headerTitle=Parsing_wpd
@@ -82,8 +82,8 @@ com.company.parsing_wpd.view.login/loginForm.rememberMe=Remember me
 
 com.company.parsing_wpd.view.user/UserListView.title=Users
 
-com.company.parsing_wpd.view.studyplane/studyPlaneDetailView.title=Study plane
-com.company.parsing_wpd.view.studyplane/studyPlaneListView.title=Study planes
+com.company.parsing_wpd.view.studyplane/studyPlaneDetailView.title=Учебный план
+com.company.parsing_wpd.view.studyplane/studyPlaneListView.title=Учебные планы
 
 com.company.parsing_wpd.view.user/UserDetailView.title=User
 com.company.parsing_wpd.view.user/confirmPassword=Confirm password

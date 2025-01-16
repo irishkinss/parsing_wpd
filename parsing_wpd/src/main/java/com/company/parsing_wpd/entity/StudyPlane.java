@@ -45,7 +45,7 @@ public class StudyPlane {
 
     @Composition
     @OrderBy("code")
-    @OneToMany(mappedBy = "studyPlane")
+    @OneToMany(mappedBy = "studyPlane", cascade = CascadeType.PERSIST)
     private List<Discipline> disciplines;
 
     public String getListDisciplines() {

@@ -73,7 +73,42 @@ public class StudyPlaneDetailView extends StandardDetailView<StudyPlane> {
             levelEducationField.setValue(parsedData[3]); // Уровень образования
         }
     }
+@Subscribe(id="parseDisciplineBtn")
+    public void parseDiscipline(ClickEvent<Button> event) {
+     //Выводим сообщение в консоль
+        System.out.println("Save and Close button clicked!");
 
+        // Загружаем документ
+        PDDocument document = this.documentUpload();
+
+        // Получаем карту дисциплин (коды и имена)
+        Map<String, String> disciplines = Parser.parsingDisciplines(document);
+
+        // Формируем строку с именами дисциплин, разделёнными новой строкой
+        StringBuilder disciplinesString = new StringBuilder();
+        disciplines.forEach((code, name) ->
+                disciplinesString.append(name).append("\n") // Добавляем только имя дисциплины
+        );
+
+        // Сохраняем строку с именами дисциплин в поле listDisciplines объекта StudyPlane
+        StudyPlane studyPlane = getEditedEntity();
+        studyPlane.setListDisciplines(disciplinesString.toString());
+
+        // Сохраняем дисциплины как объекты Discipline в базу данных
+        disciplines.forEach((code, name) -> {
+            Discipline discipline = dataManager.create(Discipline.class);
+            discipline.setCode(code);
+            discipline.setName(name);
+            discipline.setStudyPlane(studyPlane);  // Связываем дисциплину с учебным планом
+
+            // Сохраняем дисциплину в базу данных
+            dataManager.save(discipline);
+        });
+
+        // Пример вывода в консоль
+        System.out.println("Disciplines names saved to StudyPlane:");
+        System.out.println(disciplinesString.toString());
+    }
 //    @Subscribe("saveAndCloseBtn")
 //    public void onSaveAndCloseBtnClick(ClickEvent<Button> event) {
 //        // Выводим сообщение в консоль

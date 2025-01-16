@@ -27,6 +27,9 @@
 
             <fileStorageUploadField id="fileField" clearButtonVisible="true" fileNameVisible="true" property="file"/>
             <button id="uploadFileBtn"  text="парсинг полей"/>
+            <button id="parseDisciplineBtn" text="парсинг дисциплин"/>
+
+
             <textField id="nameField" property="name"/>
             <textField id="levelEducationField" property="levelEducation"/>
             <textField id="codeField" property="code"/>

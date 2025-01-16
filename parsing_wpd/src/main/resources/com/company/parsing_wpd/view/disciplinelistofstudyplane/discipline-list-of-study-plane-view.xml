@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://studyPlaneListView.title"
-      focusComponent="studyPlanesDataGrid">
+      title="msg://DisciplineListOfStudyPlane"
+      focusComponent="DisciplineListOfStudyPlaneDataGrid">
     <data>
         <collection id="studyPlanesDc"
-                    class="com.company.parsing_wpd.entity.StudyPlane">
+                    class="com.company.parsing_wpd.entity.Discipline">
             <fetchPlan extends="_instance_name">
-                <property name="levelEducation"/>
                 <property name="code"/>
-                <property name="profile"/>
-                <property name="file"/>
             </fetchPlan>
             <loader id="studyPlanesDl" readOnly="true">
                 <query>
@@ -37,13 +34,13 @@
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
 
-            <button id="createBtn" action="studyPlanesDataGrid.create"/>
-            <button id="editBtn" action="studyPlanesDataGrid.edit"/>
-            <button id="readBtn" action="studyPlanesDataGrid.read"/>
-            <button id="removeBtn" action="studyPlanesDataGrid.remove"/>
+            <button id="createBtn" action="DisciplineListOfStudyPlaneDataGrid.create"/>
+            <button id="editBtn" action="DisciplineListOfStudyPlaneDataGrid.edit"/>
+            <button id="readBtn" action="DisciplineListOfStudyPlaneDataGrid.read"/>
+            <button id="removeBtn" action="DisciplineListOfStudyPlaneDataGrid.remove"/>
             <simplePagination id="pagination" dataLoader="studyPlanesDl"/>
         </hbox>
-        <dataGrid id="studyPlanesDataGrid"
+        <dataGrid id="DisciplineListOfStudyPlaneDataGrid"
                   width="100%"
                   minHeight="20em"
                   dataContainer="studyPlanesDc"
@@ -56,10 +53,7 @@
             </actions>
             <columns resizable="true">
                 <column property="name"/>
-                <column property="levelEducation"/>
                 <column property="code"/>
-                <column property="profile"/>
-                <column property="file"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

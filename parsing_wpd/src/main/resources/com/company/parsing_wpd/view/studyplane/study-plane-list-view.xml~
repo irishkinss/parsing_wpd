@@ -36,6 +36,7 @@
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
+
             <button id="createBtn" action="studyPlanesDataGrid.create"/>
             <button id="editBtn" action="studyPlanesDataGrid.edit"/>
             <button id="readBtn" action="studyPlanesDataGrid.read"/>
@@ -48,7 +49,6 @@
                   dataContainer="studyPlanesDc"
                   columnReorderingAllowed="true">
             <actions>
-
                 <action id="create" type="list_create"/>
                 <action id="edit" type="list_edit"/>
                 <action id="read" type="list_read"/>
@@ -60,9 +60,9 @@
                 <column property="code"/>
                 <column property="profile"/>
                 <column property="file"/>
-                <editorActionsColumn>
-                    <editButton icon="vaadin:file-add"/>
-                </editorActionsColumn>
+<!--                <editorActionsColumn>-->
+<!--                    <editButton icon="vaadin:file-add"/>-->
+<!--                </editorActionsColumn>-->
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">
