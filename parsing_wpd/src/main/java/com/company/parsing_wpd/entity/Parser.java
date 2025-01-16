@@ -10,12 +10,9 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import java.util.UUID;
 
 @JmixEntity
 public class Parser {
@@ -53,10 +50,36 @@ public class Parser {
         this.id = id;
     }
 
+    // Метод для проверки первой страницы на наличие фразы "УЧЕБНЫЙ ПЛАН"
+    public static boolean checkTitlePageUPlan(PDDocument document) {
+        try {
 
+            // Извлечение текста с первой страницы
+            PDFTextStripper pdfStripper = new PDFTextStripper();
+            pdfStripper.setStartPage(1);
+            pdfStripper.setEndPage(1);
+            String pageText = pdfStripper.getText(document);
+
+            // Закрытие документа
+            //document.close();
+
+            // Проверка наличия фразы "УЧЕБНЫЙ ПЛАН" в тексте
+            return pageText.contains("УЧЕБНЫЙ ПЛАН");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     // парсинг первой страницы для поиска наименования направления, кода и тп
-    public static void parsingTitlePage(PDDocument document) {
+    public static String[] parsingTitlePage(PDDocument document) {
+        String directionCode = "";
+        String directionName = "";
+        String directionProfile = "";
+        String studyForm = "";
+        String levelEducation = "";
+
         try {
             // Настроим PDFTextStripper для извлечения текста только с первой страницы
             PDFTextStripper textStripper = new PDFTextStripper();
@@ -71,11 +94,6 @@ public class Parser {
 
             // Ищем строку с "Направление" и извлекаем код и название
             String[] lines = text.split("\n");
-            String directionCode = "";
-            String directionName = "";
-            String directionProfile = "";
-            String studyForm = "";
-            String levelEducation = "";
 
             for (int i = 0; i < lines.length; i++) {
                 String line = lines[i].trim();
@@ -148,17 +166,104 @@ public class Parser {
             }
 
             // Выводим полученные данные
-            System.out.println(directionCode + " " + directionName + " " + directionProfile + " " + studyForm + " " + levelEducation);
+            //System.out.println(directionCode + " " + directionName + " " + directionProfile + " " + studyForm + " " + levelEducation);
 
             document.close();
-            // Место для сохранения в БД
-            // Здесь можно отправить данные (directionCode, directionName, directionProfile, studyForm, levelEducation) в базу данных
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // Возвращаем массив данных
+        return new String[]{directionCode, directionName, directionProfile, studyForm, levelEducation};
+    }
+
+    // Метод для парсинга списка дисциплин и их кодов из документа PDF
+    public static Map<String, String> parsingDisciplines(PDDocument document) {
+        Map<String, String> disciplinesMap = new HashMap<>();
+
+        try {
+            // Получаем номер последней страницы
+            int lastPage = document.getNumberOfPages();
+
+            // Настроим PDFTextStripper для извлечения текста только с последней страницы
+            PDFTextStripper textStripper = new PDFTextStripper();
+            textStripper.setStartPage(lastPage);
+            textStripper.setEndPage(lastPage);
+
+            // Извлекаем текст с последней страницы
+            String text = textStripper.getText(document);
+
+            // Разбиваем текст на строки
+            String[] lines = text.split("\n");
+
+            String currentCode = "";
+            StringBuilder currentName = new StringBuilder();
+
+            // Обрабатываем каждую строку
+            for (String line : lines) {
+                line = line.trim();
+
+                // Проверка на исключаемые строки
+                if (isExcludedLine(line)) {
+                    continue; // Пропускаем строки, которые не нужно обрабатывать
+                }
+
+                // Проверка, если нашли строку с "Элективные"
+                if (line.startsWith("Элективные")) {
+                    if (currentCode.length() > 0 || currentName.length() > 0) {
+                        disciplinesMap.put(currentCode, currentName.toString().trim());
+                    }
+                    disciplinesMap.put("Элективные", "Элективные курсы по физической культуре и спорту");
+                    currentCode = "";
+                    currentName.setLength(0);
+                    continue;
+                }
+
+                // Пытаемся найти код дисциплины
+                String regex = "([А-ЯЁ]{1}\\d{1}\\.\\s?[А-ЯЁ]{1}[^\\s]*|ФТД\\.\\d+)"; // Формат: Код дисциплины или ФТД.цифра
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(line);
+
+                // Если нашли новый код дисциплины
+                if (matcher.find()) {
+                    if (currentCode.length() > 0 || currentName.length() > 0) {
+                        disciplinesMap.put(currentCode, currentName.toString().trim());
+                    }
+                    currentCode = matcher.group(1);
+                    currentName = new StringBuilder();
+                    currentName.append(line.substring(matcher.end()).trim());
+                } else if (line.matches("^[а-яёa-z].*") && currentCode.length() > 0) {
+                    // Добавляем продолжение названия
+                    currentName.append(" ").append(line.trim());
+                } else if (currentCode.length() > 0) {
+                    // Если код уже найден, продолжаем добавлять текст
+                    currentName.append(" ").append(line.trim());
+                }
+            }
+
+            // Записываем последний найденный код и название
+            if (currentCode.length() > 0 || currentName.length() > 0) {
+                disciplinesMap.put(currentCode, currentName.toString().trim());
+            }
+            document.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return disciplinesMap;
     }
 
 
+    // Метод для проверки, является ли строка исключением
+    private static boolean isExcludedLine(String line) {
+        //List<String> excludedPatterns = getExcludedPatterns();
 
+        for (String pattern : EXCLUDED_PATTERNS) {
+            if (line.startsWith(pattern)) {
+                return true; // Строка исключена
+            }
+        }
+        return false; // Строка не исключена
+    }
 }

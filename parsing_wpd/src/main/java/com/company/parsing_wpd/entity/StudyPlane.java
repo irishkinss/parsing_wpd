@@ -20,9 +20,12 @@ public class StudyPlane {
     @Id
     private UUID id;
 
-    @Column(name = "FILE_", length = 1024)
+    @Column(name = "FILE_ID", length = 1024)
     private FileRef file;
 
+    @Column(name = "LIST_DISCIPLINES")
+    @Lob
+    private String listDisciplines;
     @InstanceName
     @Column(name = "NAME", nullable = false)
     @NotNull
@@ -44,6 +47,14 @@ public class StudyPlane {
     @OrderBy("code")
     @OneToMany(mappedBy = "studyPlane")
     private List<Discipline> disciplines;
+
+    public String getListDisciplines() {
+        return listDisciplines;
+    }
+
+    public void setListDisciplines(String listDisciplines) {
+        this.listDisciplines = listDisciplines;
+    }
 
     public FileRef getFile() {
         return file;
