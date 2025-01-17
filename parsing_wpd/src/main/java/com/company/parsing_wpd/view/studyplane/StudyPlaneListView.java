@@ -42,4 +42,3 @@ public class StudyPlaneListView extends StandardListView<StudyPlane> {
         })).setHeader("Список дисциплин");
     }
 }
-
