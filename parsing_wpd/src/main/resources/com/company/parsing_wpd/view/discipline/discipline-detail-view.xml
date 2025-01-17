@@ -1,0 +1,45 @@
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jmix.io/schema/flowui/view
+        http://jmix.io/schema/flowui/view/view.xsd"
+      title="msg://disciplineDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="disciplineDc"
+                  class="com.company.parsing_wpd.entity.Discipline">
+            <fetchPlan>
+                <property name="name"/>
+                <property name="code"/>
+                <property name="wpdFile"/>
+            </fetchPlan>
+            <loader id="disciplineDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="disciplineDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
+            <textField id="nameField" property="name"/>
+            <textField id="codeField" property="code"/>
+            <fileStorageUploadField id="wpdFileField"
+                                    dataContainer="disciplineDc"
+                                    property="wpdFile"
+                                    fileNameVisible="true"
+                                    clearButtonVisible="true"
+                                    fileStoragePutMode="MANUAL"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

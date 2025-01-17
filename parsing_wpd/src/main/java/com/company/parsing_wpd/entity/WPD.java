@@ -1,5 +1,6 @@
 package com.company.parsing_wpd.entity;
 
+import io.jmix.core.FileRef;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
@@ -20,24 +21,24 @@ public class WPD {
     private UUID id;
 
     @JoinColumn(name = "FILE_ID")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Document file;
 
     @InstanceName
     @Column(name = "NAME", nullable = false)
-    @NotNull
+    //@NotNull
     private String name;
 
     @Column(name = "LEVEL_EDUCATION", nullable = false)
-    @NotNull
+    //@NotNull
     private String levelEducation;
 
     @Column(name = "CODE", nullable = false)
-    @NotNull
+    //@NotNull
     private String code;
 
     @Column(name = "PROFILE", nullable = false)
-    @NotNull
+    //@NotNull
     private String profile;
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "wpd")
     private Discipline discipline;
@@ -96,5 +97,8 @@ public class WPD {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public void setFile(FileRef fileRef) {
     }
 }

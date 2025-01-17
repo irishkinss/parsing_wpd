@@ -1,10 +1,12 @@
 package com.company.parsing_wpd.entity;
 
 import io.jmix.core.DeletePolicy;
+import io.jmix.core.FileRef;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.OnDeleteInverse;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.core.metamodel.annotation.JmixProperty;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -86,5 +88,23 @@ public class Discipline {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public void setWpdFile(FileRef fileRef) {
+        if (wpd == null) {
+            wpd = new WPD();
+        }
+        wpd.setFile(fileRef);
+    }
+
+    @Transient
+    @JmixProperty
+    private FileRef wpdFile;
+
+    public FileRef getWpdFile() {
+        if (wpd != null && wpd.getFile() != null) {
+            return wpd.getFile().getFile();
+        }
+        return null;
     }
 }

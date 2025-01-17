@@ -214,7 +214,7 @@ public class Parser {
                     if (currentCode.length() > 0 || currentName.length() > 0) {
                         disciplinesMap.put(currentCode, currentName.toString().trim());
                     }
-                    disciplinesMap.put("Элективные", "Элективные курсы по физической культуре и спорту");
+                    disciplinesMap.put("-", "Элективные курсы по физической культуре и спорту");
                     currentCode = "";
                     currentName.setLength(0);
                     continue;
